@@ -1,0 +1,15 @@
+.git
+.wine*
+*.log
+Debug/*.exe
+Debug/*.ilk
+Debug/*.pdb
+Debug/*.obj
+Release/*.exe
+Release/*.ilk
+Release/*.pdb
+Release/*.obj
+*.ncb
+*.opt
+*.plg
+*.positions
