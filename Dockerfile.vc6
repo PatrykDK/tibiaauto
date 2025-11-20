@@ -1,0 +1,35 @@
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV WINEARCH=win32
+ENV WINEPREFIX=/root/.wine32
+
+# Install Wine and dependencies
+RUN dpkg --add-architecture i386 && \
+    apt-get update && \
+    apt-get install -y \
+    wine32 \
+    wine64 \
+    winetricks \
+    wget \
+    cabextract \
+    p7zip-full \
+    unzip \
+    xvfb \
+    x11vnc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Initialize Wine prefix
+RUN wineboot -u && sleep 5
+
+# Install Visual C++ 6.0 runtime and MFC
+RUN winetricks -q vcrun6 mfc42 msvcirt
+
+# Set up working directory
+WORKDIR /build
+
+# Copy build script
+COPY docker-build-vc6.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-build-vc6.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-build-vc6.sh"]
