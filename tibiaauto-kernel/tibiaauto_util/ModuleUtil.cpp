@@ -1487,6 +1487,31 @@ void CModuleUtil::executeWalk(int startX, int startY, int startZ, uint8_t path[1
 					CTibiaItem *item = CModuleUtil::lookupItem(contNr, &itemsAccepted);
 					if (item->objectId)
 					{
+						uint8_t stepDir;
+						// rope found, so proceed with using rope
+						if (onSpot)
+						{
+							// Standing on the rope spot, so pick a tile to step away to
+							if (tibiaMap.isPointAvailable(self.x - 1, self.y, self.z))
+								stepDir = STEP_WEST;
+							else if (tibiaMap.isPointAvailable(self.x + 1, self.y, self.z))
+								stepDir = STEP_EAST;
+							else if (tibiaMap.isPointAvailable(self.x, self.y - 1, self.z))
+								stepDir = STEP_NORTH;
+							else if (tibiaMap.isPointAvailable(self.x, self.y + 1, self.z))
+								stepDir = STEP_SOUTH;
+							else if (tibiaMap.isPointAvailable(self.x - 1, self.y - 1, self.z))
+								stepDir = STEP_NORTHWEST;
+							else if (tibiaMap.isPointAvailable(self.x + 1, self.y + 1, self.z))
+								stepDir = STEP_SOUTHEAST;
+							else if (tibiaMap.isPointAvailable(self.x + 1, self.y - 1, self.z))
+								stepDir = STEP_NORTHEAST;
+							else if (tibiaMap.isPointAvailable(self.x - 1, self.y + 1, self.z))
+								stepDir = STEP_SOUTHWEST;
+							CPackSender::stepMulti(&stepDir, 1);
+							Sleep(CModuleUtil::randomFormula(1100, 300));
+							CMemReader::getMemReader().readSelfCharacter(&self);
+						}
 						int ropeId = CMemReader::getMemReader().mapGetPointItemId(point(modX - self.x, modY - self.y, 0), 0);
 						CPackSender::useWithObjectFromContainerOnFloor(CTibiaItem::getValueForConst("rope"), 0x40 + contNr, item->pos, ropeId, modX, modY, self.z);
 						delete item;
