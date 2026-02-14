@@ -38,9 +38,18 @@ CMemConstData::CMemConstData()
 	m_memAddressHP                    = offset + CTibiaItem::getValueForConst("addrHP");
 	m_memAddressMana                  = offset + CTibiaItem::getValueForConst("addrMana");
 	m_memAddressSlotArrow             = offset + CTibiaItem::getValueForConst("addrSlotArrow"); //arrow, ring, boots, legs, left hand, right hand, armor, backpack, necklace, helmet
-	m_memAddressLeftHand              = offset + m_memAddressSlotArrow + m_memLengthItem * 4;
-	m_memAddressRightHand             = offset + m_memAddressSlotArrow + m_memLengthItem * 5;
-	m_memAddressBackpack              = offset + m_memAddressSlotArrow + m_memLengthItem * 7;
+	// For 7.72: use direct addresses if available, otherwise calculate from SlotArrow
+	int addrLeftHand = CTibiaItem::getValueForConst("addrLeftHand");
+	int addrRightHand = CTibiaItem::getValueForConst("addrRightHand");
+	if (addrLeftHand != 0) {
+		m_memAddressLeftHand  = offset + addrLeftHand;
+		m_memAddressRightHand = offset + addrRightHand;
+		m_memAddressBackpack  = offset + CTibiaItem::getValueForConst("addrSlotArrow") + m_memLengthItem * 7;
+	} else {
+		m_memAddressLeftHand  = m_memAddressSlotArrow + m_memLengthItem * 4;
+		m_memAddressRightHand = m_memAddressSlotArrow + m_memLengthItem * 5;
+		m_memAddressBackpack  = m_memAddressSlotArrow + m_memLengthItem * 7;
+	}
 	m_memAddressSelfPosX              = offset + CTibiaItem::getValueForConst("addrSelfPosX");
 	m_memAddressSelfPosY              = offset + CTibiaItem::getValueForConst("addrSelfPosY");
 	m_memAddressSelfPosZ              = offset + CTibiaItem::getValueForConst("addrSelfPosZ");
@@ -152,5 +161,5 @@ CMemConstData::CMemConstData()
 	m_memMaxCreatures  = CTibiaItem::getValueForConst("maxCreatures");
 	m_memMaxMapTiles   = CTibiaItem::getValueForConst("maxMapTiles");
 
-	m_offsetCreatureVisible = 164;
+	m_offsetCreatureVisible = 140; // 7.72: visible at +140, 10.100: at +164
 }

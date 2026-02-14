@@ -1,18 +1,14 @@
 #pragma once
 #include "tibiaauto_util.h"
 
+// Tibia 7.72: map tile items are 12 bytes (3 ints)
 class TIBIAAUTOUTIL_API CTibiaMapTileItem
 {
 public:
 	CTibiaMapTileItem();
-	int extra;
-	int quantity;
-	int itemId;
-	int val1;
-	int val2;
-	int val3;
-	int val4;
-	int val5;
+	int extra;    // +0
+	int itemId;   // +4
+	int quantity; // +8
 };
 
 class CTibiaMapTileItemAddress
@@ -20,13 +16,8 @@ class CTibiaMapTileItemAddress
 public:
 	CTibiaMapTileItemAddress();
 	CTibiaMapTileItemAddress(int initAddr /*=0*/);
-	int extra;
-	int quantity;
-	int itemId;
-	int val1;
-	int val2;
-	int val3;
-	int val4;
-	int frameGroupPtr;
+	int extra;    // +0
+	int itemId;   // +4
+	int quantity; // +8
 };
 

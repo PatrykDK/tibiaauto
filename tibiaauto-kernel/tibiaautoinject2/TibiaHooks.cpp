@@ -100,73 +100,58 @@ void InitialiseTibiaHooks()
 	HANDLE dwHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procId);
 	CMemReader& memReader = CMemReader::getMemReader();
 
-//	hookDrawRect(dwHandle, baseAdjust(memReader.m_memAddressCallDrawBlackRect - 6), (unsigned int)INmyDrawBlackRect); // first layer black bar
-//	hookDrawRect(dwHandle, baseAdjust(memReader.m_memAddressCallDrawRect - 6), (unsigned int)INmyDrawRect); // second layer colored bar
+	// Tibia 7.72: Most function hooks are not available (addresses are 0)
+	// Only install hooks for addresses that are non-zero
 
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPrintText03 + 1), (unsigned int)INmyPrintText);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPrintText04 + 1), (unsigned int)INmyPrintText);
+	if (memReader.m_memAddressCallPrintText03) {
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPrintText03 + 1), (unsigned int)INmyPrintText);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPrintText04 + 1), (unsigned int)INmyPrintText);
+	}
 
-	// lookup: find string In(FontNumber,1 [6th match is in the middle of the function]
+	if (memReader.m_memAddressCallPlayerNameText01) {
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText01 + 1), (unsigned int)INmyPlayerNameText);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText02 + 1), (unsigned int)INmyPlayerNameText);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText03 + 1), (unsigned int)INmyPlayerNameText);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText04 + 1), (unsigned int)INmyPlayerNameText);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText05 + 1), (unsigned int)INmyPlayerNameText);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText06 + 1), (unsigned int)INmyPlayerNameText);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText07 + 1), (unsigned int)INmyPlayerNameText);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText08 + 1), (unsigned int)INmyPlayerNameText);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText09 + 1), (unsigned int)INmyPlayerNameText);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText10 + 1), (unsigned int)INmyPlayerNameText);
+	}
 
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText01 + 1), (unsigned int)INmyPlayerNameText);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText02 + 1), (unsigned int)INmyPlayerNameText);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText03 + 1), (unsigned int)INmyPlayerNameText);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText04 + 1), (unsigned int)INmyPlayerNameText);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText05 + 1), (unsigned int)INmyPlayerNameText);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText06 + 1), (unsigned int)INmyPlayerNameText);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText07 + 1), (unsigned int)INmyPlayerNameText);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText08 + 1), (unsigned int)INmyPlayerNameText);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText09 + 1), (unsigned int)INmyPlayerNameText);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallPlayerNameText10 + 1), (unsigned int)INmyPlayerNameText);
+	if (memReader.m_memAddressCallInfoMiddleScreen01) {
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMiddleScreen01 + 1), (unsigned int)INmyInterceptInfoMiddleScreen);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMiddleScreen02 + 1), (unsigned int)INmyInterceptInfoMiddleScreen);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMiddleScreen03 + 1), (unsigned int)INmyInterceptInfoMiddleScreen);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMiddleScreen04 + 1), (unsigned int)INmyInterceptInfoMiddleScreen);
+	}
 
-	// lookup: TALK_INFO_MESSAGE; this is inside of the function
+	if (memReader.m_memAddressCallInfoMessageBox01) {
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox01 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox02 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox03 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox04 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox05 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox06 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox07 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox08 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox09 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox10 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox11 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox12 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox13 + 1), (unsigned int)INmyInterceptInfoMessageBox);
+	}
 
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMiddleScreen01 + 1), (unsigned int)INmyInterceptInfoMiddleScreen);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMiddleScreen02 + 1), (unsigned int)INmyInterceptInfoMiddleScreen);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMiddleScreen03 + 1), (unsigned int)INmyInterceptInfoMiddleScreen);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMiddleScreen04 + 1), (unsigned int)INmyInterceptInfoMiddleScreen);
+	if (memReader.m_memAddressCallEncrypt01)
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallEncrypt01 + 1), (unsigned int)INmyInterceptEncrypt);
 
-	// lookup: TargetBuffer!=NULL; first call is in the middle of the infomessage function
-	//         in fact you need to increcept all calls
+	if (memReader.m_memAddressCallDecrypt01)
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallDecrypt01 + 1), (unsigned int)INmyInterceptDecrypt);
 
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox01 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox02 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox03 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox04 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox05 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox06 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox07 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox08 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox09 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox10 + 1), (unsigned int)INmyInterceptInfoMessageBox);//BADBAD
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox11 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox12 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallInfoMessageBox13 + 1), (unsigned int)INmyInterceptInfoMessageBox);
-
-	// lookup: manually match around previous address by assembly similarity
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallEncrypt01 + 1), (unsigned int)INmyInterceptEncrypt);
-
-	// lookup: function below encrypt is the decrypt function
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallDecrypt01 + 1), (unsigned int)INmyInterceptDecrypt);
-
-
-	// WARNING: decrypt function is not trapped since 8.22 as I did not track it down in the soureccode
-
-	// lookup: reference to  string "Creature!=NULL"
-	//         [you need to look for PUSH string with this debug] +
-	//         instruction before PUSH XXX must be MOV ESI, 00000000Fh
-	//         it's in the middle of the function
-	//         trap of the second (last one) reference to the function
-	//trapFun(dwHandle,0x4F32BA+1,(unsigned int)myIsCreatureVisible); // 9.20
-
-	// lookup: reference to  string "unknown packet type during login"
-	//         it's about 65 instuctions before it and 300 bytes
-	//         look for CMP ESI,-1 since the function returns -1 when there are no packets to parse
-	trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallShouldParseRecv01 + 1), (unsigned int)myShouldParseRecv);
-
-	//This allows TA ta handle any errors before they are sent to Tibia
-	//trapFun(dwHandle,baseAdjust(0x460EB3+1),(unsigned int)myShouldParseRecv); // 9.43 // need to find stuff for this
-
+	if (memReader.m_memAddressCallShouldParseRecv01)
+		trapFun(dwHandle, baseAdjust(memReader.m_memAddressCallShouldParseRecv01 + 1), (unsigned int)myShouldParseRecv);
 
 	CloseHandle(dwHandle);
 }

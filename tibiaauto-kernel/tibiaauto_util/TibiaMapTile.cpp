@@ -19,9 +19,7 @@ static char THIS_FILE[] = __FILE__;
 CTibiaMapTile::CTibiaMapTile()
 {
 	count = 0;
-	memset(stackind, 0, sizeof(int) * 10);
-	memset(items, 0, sizeof(CTibiaMapTileItem) * 10);
-	tileEnd = 0;
+	memset(items, 0, sizeof(CTibiaMapTileItem) * 14);
 }
 
 CTibiaMapTileAddress::CTibiaMapTileAddress()
@@ -31,18 +29,14 @@ CTibiaMapTileAddress::CTibiaMapTileAddress()
 
 CTibiaMapTileAddress::CTibiaMapTileAddress(int initAddr = 0)
 {
+	// Tibia 7.72: tile = count(4) + 14 items * 12 bytes = 172 bytes
+	// No stackind array in 7.72
 	int *dummy = (int*)initAddr;
 	int offset = 0;
 	count = int(&dummy[offset++]);
-	int i;
-	for (i = 0; i < 10; i++)
-	{
-		stackind[i] = int(&dummy[offset++]);
-	}
-	for (i = 0; i < 10; i++)
+	for (int i = 0; i < 14; i++)
 	{
 		items[i] = CTibiaMapTileItemAddress(int(&dummy[offset]));
 		offset  += sizeof(CTibiaMapTileItemAddress) / sizeof(int);
 	}
-	tileEnd = int(&dummy[offset++]);
 }

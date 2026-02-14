@@ -1,8 +1,10 @@
-<!-- Tibia constants for Tibia 10.103 -->
+<!-- Tibia constants for Tibia 7.72 (backported from 7.55 addresses) -->
 <const-definitions>
 	<consts>
 		<!-- item codes -->
-		<const code="ropespot" value="0x182"/> 
+		<const code="ropespot" value="0x182"/>
+		<const code="ladder" value="0x79c"/>
+		<const code="smallstone" value="0x6f5"/>
 		<const code="bagbrown" value="0xb25"/>
 		<const code="rope" value="0xbbb"/>
 		<const code="GP" value="0xbd7"/>
@@ -33,133 +35,138 @@
 		<const code="fluidEmptyS" value="0x11b"/>
 		<const code="fluidEmptyG" value="0x11c"/>
 		<const code="worms" value="0xda4"/>
+		<const code="arrow" value="0xd77"/>
+		<const code="bolt" value="0xd76"/>
 		<const code="waterWithFishStart" value="0x11F5"/>
 		<const code="waterWithFishEnd" value="0x11FA"/>
 		<const code="crate" value="0x1B3"/>
 		<const code="shovel" value="0xD81"/>
 		<const code="closedhole" value="0x251"/>
-		<const code="lootItemsAboveId" value="0x99999"/><!--9.10 value 0x322A-->
+		<const code="lootItemsAboveId" value="0x99999"/>
 
-		<!-- addresses -->
-		<const code="addrOffset" value="0"/>
+		<!-- addresses for Tibia 7.72 -->
+		<const code="addrOffset" value="0x5A000"/>
 
-				<const code="addrMCInject" value="0"/> <!--D7 3D B7 -->
-		<const code="addrXRay1" value="0x58A88C"/> <!-- 07000000????????02000000-->
-		<const code="addrXRay2" value="0x58A894"/>
-		<const code="addrFunRevealCName1" value="0x5A6AE7"/> <!-- replace 1 search (84 C0) 75 (?0E?) and (3B F8) 75 (?34?) -->
-		<const code="addrFunRevealCName2" value="0x5A6B05"/> <!-- replace 1 -->
-		<const code="addrFunRevealCName3" value="0"/>
-		<const code="addrFunRevealCName4" value="0"/>
-		<const code="addrSelfPosX" value="0"/>
-		<const code="addrSelfPosY" value="0"/>
-		<const code="addrSelfPosZ" value="0"/>
-		<const code="addrBattleMin" value="0"/><!-- Tibia now assumes this to be 0 -->
+		<const code="addrMCInject" value="0xDA6E5"/>
+		<const code="addrXRay1" value="0"/>
+		<const code="addrXRay2" value="0"/>
+		<const code="addrFunRevealCName1" value="0x46C515"/>
+		<const code="addrFunRevealCName2" value="0x419498"/>
+		<const code="addrFunRevealCName3" value="0x4194B3"/>
+		<const code="addrFunRevealCName4" value="0x4194C3"/>
+		<const code="addrSelfPosX" value="0x577540"/>
+		<const code="addrSelfPosY" value="0x57753C"/>
+		<const code="addrSelfPosZ" value="0x577538"/>
+		<const code="addrBattleMin" value="0x56C8A8"/>
 
-		<const code="addrCurrentTileToGo" value="0x9703D8"/><!--counts up to addrTileToGo-->
-		<const code="addrSelfFlags" value="0x970410"/> <!-- cat1 -->
-		<const code="addrPathToGo" value="0x970420"/>
-		<const code="addrFollowedCreature" value="0x97044C"/>
-		<const code="addrXor" value="0x970458"/>
-		<const code="addrManaMax" value="0x97045C"/>
-		<const code="addrExp" value="0x970460"/>
-		<const code="addrBattleMax" value="0x97046C"/>
-		<const code="addrLvl" value="0x970470"/>
-		<const code="addrSoulPoints" value="0x970474"/>
-		<const code="addrMlvl" value="0x970478"/>
-		<const code="addrMlvlPercLeft" value="0x970484"/>
-		<const code="addrAttackedCreature" value="0x970488"/>
-		<const code="addrMana" value="0x97048C"/>
-		<const code="addrTilesToGo" value="0x970490"/>
-		<const code="addrSkillFistPercLeft" value="0x970494"/>
-		<const code="addrStamina" value="0x9704D8"/>
-		<const code="addrCurrentWindow" value="0x970740"/> <!-- cat2 -->
-		<const code="addrModeFollow" value="0x9815B8"/>
-		<const code="addrModePVP" value="0x9816C8"/>
-		<const code="addrModeAttackPlayers" value="0x9816ED"/> <!-- cat3 -->
-		<const code="addrModeAttackType" value="0x9816F4"/> <!-- cat3 -->
-		<const code="addrConnectionState" value="0x981FB4"/> <!-- cat4 -->
-		<const code="addrWhiteMessage" value="0x9C3BA0"/>
-		<const code="addrTradeCountSelf" value="0x9C80B0"/>
-		<const code="addrTradeFirstItemSelf" value="0x9C80B4"/>
-		<const code="addrTradeCountPartner" value="0x9C8D60"/>
-		<const code="addrTradeFirstItemPartner" value="0x9C8D64"/> <!-- cat2 -->
-		<const code="addrMiniMapStart" value="0x9C99F8"/> <!-- begins at x,y map tile cat2 -->
-		<const code="addrVIP" value="0xB0AF80"/> <!-- cat0 -->
-		<const code="addrHP" value="0xB0E000"/>
-		<const code="addrGoZ" value="0xB0E008"/>
-		<const code="addrSkillFist" value="0xB0E00C"/>
-		<const code="addrSkillFish" value="0xB0E024"/>
-		<const code="addrCap" value="0xB0E040"/>
-		<const code="addrGoY" value="0xB0E044"/>
-		<const code="addrHPMax" value="0xB0E048"/>
-		<const code="addrGoX" value="0xB0E04C"/>
-		<const code="addrSelfId" value="0xB0E050"/>
-		<const code="addrFps" value="0xB5B36C"/> <!-- pointer-like value preceeding changing bytes. Search for 1000/(setFPS) and go back 0x58. 00 00 00 00 00 00 24 40=100,00 00 00 00 00 00 34 40 = 50--> <!-- cat4 -->
-		<const code="addrVocation" value="0xB4F7B0"/> <!-- pointer-like value preceeding changing bytes. Search for 1000/(setFPS) and go back 0x58. 00 00 00 00 00 00 24 40=100,00 00 00 00 00 00 34 40 = 50--> <!-- cat4 -->
-		<const code="addrPacketCount" value="0xB1622C"/> <!-- cat0 -->
-		<const code="addrFirstCreature" value="0xB6A0B0"/> <!-- cat1 -->
-		<const code="addrSlotArrow" value="0xBB0168"/> <!-- cat2 count-4 -->
-		<const code="addrMapStart" value="0xBB02D8"/> <!-- is a pointer to visible map -->
-		<const code="addrFirstContainer" value="0xBB63DC"/> <!-- cat2 pointer to cont number -0xC-->
-		<const code="addrCurrentTm" value="0xBB7A68"/> <!-- cat2 -->
+		<const code="addrCurrentTileToGo" value="0x56C854"/>
+		<const code="addrSelfFlags" value="0x56C7D8"/>
+		<const code="addrPathToGo" value="0"/><!-- not available in 7.72 -->
+		<const code="addrFollowedCreature" value="0"/><!-- not available in 7.72 -->
+		<const code="addrXor" value="0"/><!-- not available in 7.72 -->
+		<const code="addrManaMax" value="0x56C828"/>
+		<const code="addrExp" value="0x56C840"/>
+		<const code="addrBattleMax" value="0x56C8A4"/>
+		<const code="addrLvl" value="0x56C83C"/>
+		<const code="addrSoulPoints" value="0x56C824"/>
+		<const code="addrMlvl" value="0x56C838"/>
+		<const code="addrMlvlPercLeft" value="0x56C830"/>
+		<const code="addrAttackedCreature" value="0x56C81C"/>
+		<const code="addrMana" value="0x56C82C"/>
+		<const code="addrTilesToGo" value="0x56C858"/>
+		<const code="addrSkillFistPercLeft" value="0x56C7DC"/>
+		<const code="addrStamina" value="0"/><!-- not available in 7.72 -->
+		<const code="addrCurrentWindow" value="0"/><!-- not available in 7.72 -->
+		<const code="addrModeFollow" value="0"/><!-- not available in 7.72 -->
+		<const code="addrModePVP" value="0"/><!-- not available in 7.72 -->
+		<const code="addrModeAttackPlayers" value="0"/><!-- not available in 7.72 -->
+		<const code="addrModeAttackType" value="0"/><!-- not available in 7.72 -->
+		<const code="addrConnectionState" value="0"/><!-- not available in 7.72 -->
+		<const code="addrWhiteMessage" value="0"/><!-- not available in 7.72 -->
+		<const code="addrTradeCountSelf" value="0x576CB8"/>
+		<const code="addrTradeFirstItemSelf" value="0x576CBC"/>
+		<const code="addrTradeCountPartner" value="0x577190"/>
+		<const code="addrTradeFirstItemPartner" value="0x577194"/>
+		<const code="addrMiniMapStart" value="0"/><!-- not available in 7.72 -->
+		<const code="addrVIP" value="0"/><!-- not available in 7.72 -->
+		<const code="addrHP" value="0x56C848"/>
+		<const code="addrGoZ" value="0x56C888"/>
+		<const code="addrSkillFist" value="0x56C7F8"/>
+		<const code="addrSkillFish" value="0x56C810"/>
+		<const code="addrCap" value="0x56C820"/>
+		<const code="addrGoY" value="0x56C88C"/>
+		<const code="addrHPMax" value="0x56C844"/>
+		<const code="addrGoX" value="0x56C890"/>
+		<const code="addrSelfId" value="0x56C84C"/>
+		<const code="addrFps" value="0x71D0CC"/>
+		<const code="addrVocation" value="0"/><!-- not available in 7.72 -->
+		<const code="addrPacketCount" value="0"/><!-- not available in 7.72 -->
+		<const code="addrFirstCreature" value="0x56C8B0"/>
+		<const code="addrSlotArrow" value="0x574DCC"/>
+		<const code="addrLeftHand" value="0x574D9C"/>
+		<const code="addrRightHand" value="0x574D90"/>
+		<const code="addrMapStart" value="0x57AC20"/>
+		<const code="addrFirstContainer" value="0x574DD8"/>
+		<const code="addrCurrentTm" value="0x574518"/>
 
-		<const code="addrFunTibiaPrintText" value="0x4A2DD0"/>
-		<const code="addrFunTibiaPlayerNameText" value="0x54BC80"/>
-		<const code="addrFunTibiaInfoMiddleScreen" value="0x613BA0"/>
-		<const code="addrFunTibiaIsCreatureVisible" value="0x613BA0"/>
-		<const code="addrFunTibiaEncrypt" value="0x62A670"/>
-		<const code="addrFunTibiaDecrypt" value="0x62A6F0"/>
-		<const code="addrFunTibiaShouldParseRecv" value="0x5B7570"/> <!-- switch table contains -->
-		<const code="addrFunTibiaInfoMessageBox" value="0x617B10"/>
-		<const code="addrArrayPtrRecvStream" value="0xBB4E50"/> <!-- look for this address near above location -->
-		<const code="addrCallDrawRect" value="0x5A3022"/>
-		<const code="addrCallDrawBlackRect" value="0x5A2F93"/>
-		<const code="addrCallPrintText01" value="0x49B42D"/><!-- //...<addr>.* -->
-		<const code="addrCallPrintText02" value="0x49B472"/>
-		<const code="addrCallPrintText03" value="0x4A4FA9"/>
-		<const code="addrCallPrintText04" value="0x5A306F"/>
-		<const code="addrCallPrintText05" value="0x5A45C7"/>
-		<const code="addrCallPlayerNameText01" value="0x458775"/>
-		<const code="addrCallPlayerNameText02" value="0x46A88C"/>
-		<const code="addrCallPlayerNameText03" value="0x470778"/>
-		<const code="addrCallPlayerNameText04" value="0x470968"/>
-		<const code="addrCallPlayerNameText05" value="0x477068"/>
-		<const code="addrCallPlayerNameText06" value="0x48383C"/>
-		<const code="addrCallPlayerNameText07" value="0x4A2E5C"/>
-		<const code="addrCallPlayerNameText08" value="0x4DD53A"/>
-		<const code="addrCallPlayerNameText09" value="0x5A3EAF"/>
-		<const code="addrCallPlayerNameText10" value="0x5AE39A"/>
-		<const code="addrCallInfoMiddleScreen01" value="0x436D13"/>
-		<const code="addrCallInfoMiddleScreen02" value="0x4A0589"/>
-		<const code="addrCallInfoMiddleScreen03" value="0x4E464D"/>
-		<const code="addrCallInfoMiddleScreen04" value="0x5A0D2B"/>
-		<const code="addrCallInfoMessageBox01" value="0x4365A4"/>
-		<const code="addrCallInfoMessageBox02" value="0x465C7F"/>
-		<const code="addrCallInfoMessageBox03" value="0x53220A"/>
-		<const code="addrCallInfoMessageBox04" value="0x597A12"/>
-		<const code="addrCallInfoMessageBox05" value="0x598217"/>
-		<const code="addrCallInfoMessageBox06" value="0x5982BD"/>
-		<const code="addrCallInfoMessageBox07" value="0x617995"/>
-		<const code="addrCallInfoMessageBox08" value="0x61835C"/>
-		<const code="addrCallInfoMessageBox09" value="0x61844B"/>
-		<const code="addrCallInfoMessageBox10" value="0x618632"/>
-		<const code="addrCallInfoMessageBox11" value="0x6188F9"/>
-		<const code="addrCallInfoMessageBox12" value="0x619405"/>
-		<const code="addrCallInfoMessageBox13" value="0x619435"/>
-		<const code="addrCallEncrypt01" value="0x5B6CA3"/>
-		<const code="addrCallDecrypt01" value="0x5B7299"/>
-		<const code="addrCallShouldParseRecv01" value="0x4A82E2"/>
+		<!-- Function addresses - not available in 7.72, set to 0 -->
+		<const code="addrFunTibiaPrintText" value="0"/>
+		<const code="addrFunTibiaPlayerNameText" value="0"/>
+		<const code="addrFunTibiaInfoMiddleScreen" value="0"/>
+		<const code="addrFunTibiaIsCreatureVisible" value="0"/>
+		<const code="addrFunTibiaEncrypt" value="0"/>
+		<const code="addrFunTibiaDecrypt" value="0"/>
+		<const code="addrFunTibiaShouldParseRecv" value="0"/>
+		<const code="addrFunTibiaInfoMessageBox" value="0"/>
+		<const code="addrArrayPtrRecvStream" value="0"/>
+		<const code="addrCallDrawRect" value="0"/>
+		<const code="addrCallDrawBlackRect" value="0"/>
+		<const code="addrCallPrintText01" value="0"/>
+		<const code="addrCallPrintText02" value="0"/>
+		<const code="addrCallPrintText03" value="0"/>
+		<const code="addrCallPrintText04" value="0"/>
+		<const code="addrCallPrintText05" value="0"/>
+		<const code="addrCallPlayerNameText01" value="0"/>
+		<const code="addrCallPlayerNameText02" value="0"/>
+		<const code="addrCallPlayerNameText03" value="0"/>
+		<const code="addrCallPlayerNameText04" value="0"/>
+		<const code="addrCallPlayerNameText05" value="0"/>
+		<const code="addrCallPlayerNameText06" value="0"/>
+		<const code="addrCallPlayerNameText07" value="0"/>
+		<const code="addrCallPlayerNameText08" value="0"/>
+		<const code="addrCallPlayerNameText09" value="0"/>
+		<const code="addrCallPlayerNameText10" value="0"/>
+		<const code="addrCallInfoMiddleScreen01" value="0"/>
+		<const code="addrCallInfoMiddleScreen02" value="0"/>
+		<const code="addrCallInfoMiddleScreen03" value="0"/>
+		<const code="addrCallInfoMiddleScreen04" value="0"/>
+		<const code="addrCallInfoMessageBox01" value="0"/>
+		<const code="addrCallInfoMessageBox02" value="0"/>
+		<const code="addrCallInfoMessageBox03" value="0"/>
+		<const code="addrCallInfoMessageBox04" value="0"/>
+		<const code="addrCallInfoMessageBox05" value="0"/>
+		<const code="addrCallInfoMessageBox06" value="0"/>
+		<const code="addrCallInfoMessageBox07" value="0"/>
+		<const code="addrCallInfoMessageBox08" value="0"/>
+		<const code="addrCallInfoMessageBox09" value="0"/>
+		<const code="addrCallInfoMessageBox10" value="0"/>
+		<const code="addrCallInfoMessageBox11" value="0"/>
+		<const code="addrCallInfoMessageBox12" value="0"/>
+		<const code="addrCallInfoMessageBox13" value="0"/>
+		<const code="addrCallEncrypt01" value="0"/>
+		<const code="addrCallDecrypt01" value="0"/>
+		<const code="addrCallShouldParseRecv01" value="0"/>
 
+		<!-- structure lengths for Tibia 7.72 -->
 		<const code="lengthContainer" value="492"/>
-		<const code="lengthItem" value="32"/>
-		<const code="lengthCreature" value="220"/>
-		<const code="lengthMapTile" value="368"/>
-		<const code="lengthVIP" value="96"/><!--no longer used-->
-		<const code="lengthMiniMap" value="131240"/>
-		<const code="lengthMiniMapLabel" value="112"/>
-		<const code="maxContainers" value="16"/>
-		<const code="maxCreatures" value="1300"/>
+		<const code="lengthItem" value="12"/>
+		<const code="lengthCreature" value="156"/>
+		<const code="lengthMapTile" value="172"/>
+		<const code="lengthVIP" value="96"/>
+		<const code="lengthMiniMap" value="0"/>
+		<const code="lengthMiniMapLabel" value="0"/>
+		<const code="maxContainers" value="10"/>
+		<const code="maxCreatures" value="150"/>
 		<const code="maxMapTiles" value="2016"/>
 	</consts>
 </const-definitions>
-

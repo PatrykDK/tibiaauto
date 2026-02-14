@@ -3,15 +3,14 @@
 
 #include "TibiaMapTileItem.h"
 
+// Tibia 7.72: map tile is 172 bytes = count(4) + 14 items * 12 bytes
 class TIBIAAUTOUTIL_API CTibiaMapTile
 {
 public:
 	CTibiaMapTile();
 
 	int count;
-	int stackind[10];
-	CTibiaMapTileItem items[10];
-	int tileEnd;
+	CTibiaMapTileItem items[14];
 };
 
 class CTibiaMapTileAddress
@@ -21,8 +20,6 @@ public:
 	CTibiaMapTileAddress(int initAddr /*=0*/);
 
 	int count;
-	int stackind[10];
-	CTibiaMapTileItemAddress items[10];
-	int tileEnd;
+	CTibiaMapTileItemAddress items[14];
 };
 
